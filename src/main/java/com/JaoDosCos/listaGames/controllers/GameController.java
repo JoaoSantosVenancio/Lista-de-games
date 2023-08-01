@@ -3,10 +3,11 @@ package com.JaoDosCos.listaGames.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.JaoDosCos.listaGames.entities.Game;
+import com.JaoDosCos.listaGames.dto.GameMinDTO;
 import com.JaoDosCos.listaGames.services.GameService;
 
 @RestController
@@ -14,9 +15,11 @@ import com.JaoDosCos.listaGames.services.GameService;
 public class GameController {
 	
 	@Autowired
-	private GameService gameService;
+	private GameService gameService; 
 	
-	public List<Game> findAll(){
-		
+	@GetMapping
+	public List<GameMinDTO> findAll(){
+		List<GameMinDTO> result = gameService.findAll();
+		return result;
 	}
 }
