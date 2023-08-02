@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.JaoDosCos.listaGames.dto.GameDTO;
 import com.JaoDosCos.listaGames.dto.GameMinDTO;
 import com.JaoDosCos.listaGames.entities.Game;
+import com.JaoDosCos.listaGames.projections.GameMinProjection;
 import com.JaoDosCos.listaGames.repositories.GameRepositories;
 
 @Component
@@ -23,6 +24,13 @@ public class GameService {
 		Game result = gameRepository.findById(id).get();
 		//exception handling
 		GameDTO dto = new GameDTO(result);
+		return dto;
+	}
+	
+	@Transactional(readOnly = true)
+	public List<GameMinDTO> findByList(Long listId) {
+		List <GameMinProjection> result = gameRepository.searchByList(listId);
+		List<GameMinDTO> dto = result.stream().map(x -> new GameMinDTO(x)).toList();
 		return dto;
 	}
 	
